@@ -22,7 +22,7 @@ namespace Datos
             this.servidor = "localhost";
             this.db = "sistemap";
             this.usuario = "root";
-            this.contrasena = "root12";
+            this.contrasena = "admin";
             this.puerto = "3306";
         }
         public MySqlConnection Conectar()

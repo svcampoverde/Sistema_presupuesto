@@ -49,6 +49,41 @@ namespace LogicDeNegocio.provincia
                 }
             }
         }
+
+        public List<Provincia> BuscarProvincia(string dato)
+        {
+            Provincia provincia = null;
+            List<Provincia> ListProvincia = new List<Provincia>();
+
+            try
+            {
+                con = new Conexion().Conectar();
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand("spl_listarProvincia", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    provincia = new Provincia(reader["descripcion"].ToString());
+                    ListProvincia.Add(provincia);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error emitido por: " + ex);
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+            return ListProvincia;
+        }
+
     }
 
 }
